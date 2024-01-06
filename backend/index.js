@@ -5,9 +5,12 @@ import cors from 'cors'
  //utils
  import connectDB from './config/db.js' 
 
+
+import userRoute from './routes/userRoute.js'
+
 dotenv.config();
 
-const port = process.env.PORT || 8088;
+const port = process.env.PORT || 8000;
 
 connectDB()
 
@@ -24,6 +27,9 @@ app.use(cors(
     credentials: true
     }
 ));
+
+
+app.use("/api/users", userRoute)
 
 app.get("/", (req, res) => {
     res.send("BACKEND RUNNING")
