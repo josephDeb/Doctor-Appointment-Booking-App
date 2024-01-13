@@ -6,7 +6,7 @@ const RegisterUser = () => {
   const navigate = useNavigate();
 
   const [error, setError] = useState(false);
-  const [warning, setWarning] = useState(false);
+  const [status, setStatus] = useState("");
 
   const [values, setValues] = useState({
     username: "",
@@ -23,7 +23,6 @@ const RegisterUser = () => {
     }
 
     setError(true);
-    setWarning(true);
     const res = await fetch("api/users/sign-up", {
       method: "POST",
       headers: {
@@ -34,16 +33,19 @@ const RegisterUser = () => {
 
     try {
       setError(false);
-      setWarning(false);
       const data = await res.json();
+      console.log(data);
       if (data.Status) {
         Swal.fire({
           title: "Successfully created!",
           text: "Login now!",
           icon: "success",
         });
+        navigate("/sign-in");
+      } else {
+        alert(`${data.Error}`);
+        setStatus(`${data.Error}`);
       }
-      navigate("/");
     } catch (error) {
       setError(false);
       alert("Something went wrong");
@@ -105,7 +107,7 @@ const RegisterUser = () => {
           <a className="text-[15px] text-red-700 hover:underline">
             Forget Password?
           </a>
-          <p className="text-red-600 text-lg"></p>
+          <p className="text-red-600 text-lg">{status}</p>
           <div className="mt-2">
             <button
               type="submit"

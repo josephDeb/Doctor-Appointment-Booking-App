@@ -1,5 +1,5 @@
-import jwt from 'jsonwebtoken'
-const jwtpass = "naniwanandeska" || process.env.JWT_SECRET
+import jwt from "jsonwebtoken";
+const jwtpass = "naniwanandeska" || process.env.JWT_SECRET;
 
 const generateToken = (res, userId) => {
   const token = jwt.sign({ userId }, jwtpass, {
@@ -17,4 +17,4 @@ const generateToken = (res, userId) => {
   return token;
 };
 
-export default generateToken
+export default generateToken;
